@@ -1,197 +1,173 @@
-Set(
-    CurrentUser,
-    Office365Users.UserProfileV2(User().Email)
-);
+Set(CurrentUser, Office365Users.UserProfileV2(User().Email));
+Set(varCurrentWorkType, "All");
+Set(varCurrentStatus, "All");
+Set(varMyTasksOnly, false);
+Set(varSearchFloc, Blank());
+Set(varSelectedItem, Blank());
 
-Set(
-    MyTheme,
+
+MyTheme = 
+{
+    Primary: ColorValue("#1A73E8"),
+    PrimaryHover: ColorValue("#1765CC"),
+    PrimaryLight: ColorValue("#E8F0FE"),
+
+    AppBg: ColorValue("#F8F9FA"),
+    Surface: ColorValue("#FFFFFF"),
+    SurfaceAlt: ColorValue("#F1F3F4"),
+    Overlay: RGBA(0,0,0,0.04),
+
+    TextPrimary: ColorValue("#202124"),
+    TextSecondary: ColorValue("#5F6368"),
+    TextMuted: ColorValue("#80868B"),
+    TextOnPrimary: ColorValue("#FFFFFF"),
+
+    Border: ColorValue("#DADCE0"),
+    BorderStrong: ColorValue("#BDC1C6"),
+    Divider: ColorValue("#E0E0E0"),
+
+    StatusNew: ColorValue("#1A73E8"),
+    StatusNewBg: ColorValue("#E8F0FE"),
+    StatusInProgress: ColorValue("#F9AB00"),
+    StatusInProgressBg: ColorValue("#FEF7E0"),
+    StatusCompleted: ColorValue("#188038"),
+    StatusCompletedBg: ColorValue("#E6F4EA"),
+    StatusCancelled: ColorValue("#D93025"),
+    StatusCancelledBg: ColorValue("#FCE8E6"),
+
+    PriorityCritical: ColorValue("#D93025"),
+    PriorityCriticalBg: ColorValue("#FCE8E6"),
+    PriorityHigh: ColorValue("#F29900"),
+    PriorityHighBg: ColorValue("#FEF7E0"),
+    PriorityMedium: ColorValue("#1A73E8"),
+    PriorityMediumBg: ColorValue("#E8F0FE"),
+    PriorityLow: ColorValue("#5F6368"),
+    PriorityLowBg: ColorValue("#F1F3F4"),
+
+    InputBg: ColorValue("#FFFFFF"),
+    InputBorder: ColorValue("#DADCE0"),
+    InputBorderFocus: ColorValue("#1A73E8"),
+    HoverFill: ColorValue("#F1F3F4"),
+    SelectedFill: ColorValue("#E8F0FE"),
+
+    Danger: ColorValue("#D93025"),
+    Warning: ColorValue("#F9AB00"),
+    Success: ColorValue("#188038"),
+    Info: ColorValue("#1A73E8")
+}
+
+UI =
+{
+    RadiusSm: 6,
+    RadiusMd: 10,
+    RadiusLg: 14,
+
+    GapXs: 4,
+    GapSm: 8,
+    GapMd: 12,
+    GapLg: 16,
+    GapXl: 24,
+
+    BorderThin: 1,
+    HeaderHeight: 64,
+    SidebarWidth: 280,
+    ContentMaxWidth: 1600
+}
+
+MyIcons =
+{
+    Queue: "data:image/svg+xml;utf8," &
+        EncodeUrl(
+            "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'>
+                <path d='M4 6h16M4 12h16M4 18h16' stroke='#5F6368' stroke-width='2' stroke-linecap='round'/>
+            </svg>"
+        ),
+
+    QueueFill: "data:image/svg+xml;utf8," &
+        EncodeUrl(
+            "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'>
+                <path d='M4 6h16M4 12h16M4 18h16' stroke='#1A73E8' stroke-width='2' stroke-linecap='round'/>
+            </svg>"
+        ),
+
+    Create: "data:image/svg+xml;utf8," &
+        EncodeUrl(
+            "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'>
+                <path d='M12 5v14M5 12h14' stroke='#5F6368' stroke-width='2' stroke-linecap='round'/>
+            </svg>"
+        ),
+
+    CreateFill: "data:image/svg+xml;utf8," &
+        EncodeUrl(
+            "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'>
+                <path d='M12 5v14M5 12h14' stroke='#1A73E8' stroke-width='2' stroke-linecap='round'/>
+            </svg>"
+        ),
+
+    MyWork: "data:image/svg+xml;utf8," &
+        EncodeUrl(
+            "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'>
+                <circle cx='12' cy='8' r='3' stroke='#5F6368' stroke-width='2'/>
+                <path d='M6 19c1.5-3 4-4 6-4s4.5 1 6 4' stroke='#5F6368' stroke-width='2' stroke-linecap='round'/>
+            </svg>"
+        ),
+
+    MyWorkFill: "data:image/svg+xml;utf8," &
+        EncodeUrl(
+            "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'>
+                <circle cx='12' cy='8' r='3' stroke='#1A73E8' stroke-width='2'/>
+                <path d='M6 19c1.5-3 4-4 6-4s4.5 1 6 4' stroke='#1A73E8' stroke-width='2' stroke-linecap='round'/>
+            </svg>"
+        )
+}
+
+MenuItems =
+[
     {
-        Primary: ColorValue("#1A73E8"),
-        PrimaryHover: ColorValue("#1765CC"),
-        PrimaryLight: ColorValue("#E8F0FE"),
-
-        AppBg: ColorValue("#F8F9FA"),
-        Surface: ColorValue("#FFFFFF"),
-        SurfaceAlt: ColorValue("#F1F3F4"),
-        Overlay: RGBA(0,0,0,0.04),
-
-        TextPrimary: ColorValue("#202124"),
-        TextSecondary: ColorValue("#5F6368"),
-        TextMuted: ColorValue("#80868B"),
-        TextOnPrimary: ColorValue("#FFFFFF"),
-
-        Border: ColorValue("#DADCE0"),
-        BorderStrong: ColorValue("#BDC1C6"),
-        Divider: ColorValue("#E0E0E0"),
-
-        StatusNew: ColorValue("#1A73E8"),
-        StatusNewBg: ColorValue("#E8F0FE"),
-        StatusInProgress: ColorValue("#F9AB00"),
-        StatusInProgressBg: ColorValue("#FEF7E0"),
-        StatusCompleted: ColorValue("#188038"),
-        StatusCompletedBg: ColorValue("#E6F4EA"),
-        StatusCancelled: ColorValue("#D93025"),
-        StatusCancelledBg: ColorValue("#FCE8E6"),
-
-        PriorityCritical: ColorValue("#D93025"),
-        PriorityCriticalBg: ColorValue("#FCE8E6"),
-        PriorityHigh: ColorValue("#F29900"),
-        PriorityHighBg: ColorValue("#FEF7E0"),
-        PriorityMedium: ColorValue("#1A73E8"),
-        PriorityMediumBg: ColorValue("#E8F0FE"),
-        PriorityLow: ColorValue("#5F6368"),
-        PriorityLowBg: ColorValue("#F1F3F4"),
-
-        InputBg: ColorValue("#FFFFFF"),
-        InputBorder: ColorValue("#DADCE0"),
-        InputBorderFocus: ColorValue("#1A73E8"),
-        HoverFill: ColorValue("#F1F3F4"),
-        SelectedFill: ColorValue("#E8F0FE"),
-
-        Danger: ColorValue("#D93025"),
-        Warning: ColorValue("#F9AB00"),
-        Success: ColorValue("#188038"),
-        Info: ColorValue("#1A73E8")
-    }
-);
-
-Set(
-    UI,
+        ID: 1,
+        Name: "Queue",
+        Icon: MyIcons.Queue,
+        IconFill: MyIcons.QueueFill,
+        Screen: scrQueue
+    },
     {
-        RadiusSm: 6,
-        RadiusMd: 10,
-        RadiusLg: 14,
-        GapSm: 8,
-        GapMd: 12,
-        GapLg: 16,
-        BorderThin: 1,
-        HeaderHeight: 64,
-        SidebarWidth: 280
-    }
-);
-
-
-
-
-Set(
-    MyIcons,
+        ID: 2,
+        Name: "Create Request",
+        Icon: MyIcons.Create,
+        IconFill: MyIcons.CreateFill,
+        Screen: scrCreate
+    },
     {
-        Queue: "data:image/svg+xml;utf8," &
-            EncodeUrl(
-                "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'>
-                    <path d='M4 6h16M4 12h16M4 18h16' stroke='#5F6368' stroke-width='2' stroke-linecap='round'/>
-                </svg>"
-            ),
-
-        QueueFill: "data:image/svg+xml;utf8," &
-            EncodeUrl(
-                "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'>
-                    <path d='M4 6h16M4 12h16M4 18h16' stroke='#1A73E8' stroke-width='2' stroke-linecap='round'/>
-                </svg>"
-            ),
-
-        Create: "data:image/svg+xml;utf8," &
-            EncodeUrl(
-                "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'>
-                    <path d='M12 5v14M5 12h14' stroke='#5F6368' stroke-width='2' stroke-linecap='round'/>
-                </svg>"
-            ),
-
-        CreateFill: "data:image/svg+xml;utf8," &
-            EncodeUrl(
-                "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'>
-                    <path d='M12 5v14M5 12h14' stroke='#1A73E8' stroke-width='2' stroke-linecap='round'/>
-                </svg>"
-            ),
-
-        MyWork: "data:image/svg+xml;utf8," &
-            EncodeUrl(
-                "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'>
-                    <circle cx='12' cy='8' r='3' stroke='#5F6368' stroke-width='2'/>
-                    <path d='M6 19c1.5-3 4-4 6-4s4.5 1 6 4' stroke='#5F6368' stroke-width='2' stroke-linecap='round'/>
-                </svg>"
-            ),
-
-        MyWorkFill: "data:image/svg+xml;utf8," &
-            EncodeUrl(
-                "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'>
-                    <circle cx='12' cy='8' r='3' stroke='#1A73E8' stroke-width='2'/>
-                    <path d='M6 19c1.5-3 4-4 6-4s4.5 1 6 4' stroke='#1A73E8' stroke-width='2' stroke-linecap='round'/>
-                </svg>"
-            ),
-
-        Completed: "data:image/svg+xml;utf8," &
-            EncodeUrl(
-                "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'>
-                    <path d='M5 12l4 4L19 7' stroke='#5F6368' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/>
-                </svg>"
-            ),
-
-        CompletedFill: "data:image/svg+xml;utf8," &
-            EncodeUrl(
-                "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'>
-                    <path d='M5 12l4 4L19 7' stroke='#1A73E8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/>
-                </svg>"
-            ),
-
-        Admin: "data:image/svg+xml;utf8," &
-            EncodeUrl(
-                "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'>
-                    <circle cx='12' cy='12' r='3' stroke='#5F6368' stroke-width='2'/>
-                    <path d='M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1'
-                        stroke='#5F6368' stroke-width='2' stroke-linecap='round'/>
-                </svg>"
-            ),
-
-        AdminFill: "data:image/svg+xml;utf8," &
-            EncodeUrl(
-                "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'>
-                    <circle cx='12' cy='12' r='3' stroke='#1A73E8' stroke-width='2'/>
-                    <path d='M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1'
-                        stroke='#1A73E8' stroke-width='2' stroke-linecap='round'/>
-                </svg>"
-            )
+        ID: 3,
+        Name: "My Work",
+        Icon: MyIcons.MyWork,
+        IconFill: MyIcons.MyWorkFill,
+        Screen: scrMyWork
     }
-);
+]
 
+WorkTypeOptions =
+[
+    { Value: "All" },
+    { Value: "MDOC_CREATE" },
+    { Value: "STRUCTURE_VERIFY" },
+    { Value: "INVOICE_RESEARCH" }
+]
 
-ClearCollect(
-    MenuItems,
-    [
-        {
-            ID: 1,
-            Name: "Queue",
-            Icon: MyIcons.Queue,
-            IconFill: MyIcons.QueueFill,
-            Screen: scrQueue
-        },
-        {
-            ID: 2,
-            Name: "Create",
-            Icon: MyIcons.Create,
-            IconFill: MyIcons.CreateFill,
-            Screen: scrCreate
-        },
-        {
-            ID: 3,
-            Name: "My Work",
-            Icon: MyIcons.MyWork,
-            IconFill: MyIcons.MyWorkFill,
-            Screen: scrMyWork
-        },
-        {
-            ID: 4,
-            Name: "Completed",
-            Icon: MyIcons.Completed,
-            IconFill: MyIcons.CompletedFill,
-            Screen: scrCompleted
-        },
-        {
-            ID: 5,
-            Name: "Admin",
-            Icon: MyIcons.Admin,
-            IconFill: MyIcons.AdminFill,
-            Screen: scrAdmin
-        }
-    ]
-);
+StatusOptions =
+[
+    { Value: "All" },
+    { Value: "New" },
+    { Value: "In Progress" },
+    { Value: "Completed" },
+    { Value: "Cancelled" }
+]
+
+PriorityOptions =
+[
+    { Value: "All" },
+    { Value: "Low" },
+    { Value: "Medium" },
+    { Value: "High" },
+    { Value: "Critical" }
+]
