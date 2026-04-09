@@ -1,0 +1,81 @@
+Create a simple internal Power Apps solution for editing records from one existing SharePoint List.
+
+Context:
+- I already have the data model.
+- Do NOT generate new tables unless absolutely required by the platform.
+- The main and only business data source is one existing SharePoint List.
+- This app is for internal users only.
+- The SharePoint List is updated daily by an ETL process.
+- The ETL owns the system-managed fields.
+- Users only need to review records and edit a small set of business-maintained fields.
+
+Goal:
+Create a clean, simple canvas app experience where users can:
+1. View records from the SharePoint List in a tabular / gallery-style list screen
+2. Search, sort, and filter the records
+3. Select a row
+4. Open a detail / edit screen for that row
+5. Edit only the approved user-editable fields
+6. Save changes back to the SharePoint List
+7. Return to the main list after saving
+
+Important constraints:
+- The data source is an existing SharePoint List, not Dataverse
+- Keep the solution lightweight
+- Do NOT create unnecessary tables, flows, or extra infrastructure unless needed
+- Do NOT redesign the data model
+- Assume I will connect the app to the correct SharePoint List myself if needed
+- Users must not edit ETL-managed fields
+- The app should support multiple users editing concurrently through SharePoint List / Power Apps standard behavior
+
+App requirements:
+Build a canvas app with these screens and behaviors:
+
+1. Main Browse Screen
+- Show records from the SharePoint List in a clear list or table-like layout
+- Include search
+- Include sorting
+- Include optional filtering
+- Show key identifying columns such as:
+  - [Primary ID field]
+  - [Primary display/title field]
+  - [Status field]
+  - [Owner field]
+  - [Last modified date field]
+- Selecting a row should navigate to a detail/edit screen for that specific record
+
+2. Detail / Edit Screen
+- Show the selected record
+- Allow editing only these fields:
+  - [Editable Field 1]
+  - [Editable Field 2]
+  - [Editable Field 3]
+  - [Editable Field 4]
+  - [Editable Field 5]
+- Show these fields as read-only reference fields:
+  - [Read-only Field 1]
+  - [Read-only Field 2]
+  - [Read-only Field 3]
+  - [Read-only Field 4]
+- Include Save and Cancel buttons
+- Save should patch/update the SharePoint List record
+- After save, navigate back to the browse screen
+- Cancel should discard unsaved changes and return to the browse screen
+
+3. UX / Layout
+- Keep the UI clean, modern, and simple
+- Prioritize speed and usability over flashy design
+- Use a professional internal business-app style
+- Minimize unnecessary screens and clicks
+- Prefer a straightforward list-to-edit workflow
+
+Field ownership rules:
+- ETL-managed fields are read-only in the app
+- Only the approved user-editable fields can be modified
+- Preserve existing SharePoint data and update only the allowed editable fields
+
+Desired output:
+- Generate the app structure, screens, controls, and basic formulas
+- Use the existing SharePoint List as the source
+- Keep the implementation as close as possible to an out-of-the-box browse/select/edit/save app shell
+- Optimize for minimal manual UI work after generation
